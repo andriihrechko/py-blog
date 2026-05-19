@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>{{ post.title }}</h2>
+  <div class="text-muted small">
+    <p>
+      {{ post.owner.username }} at
+      {{ post.created_time|date:"d.m.Y H:i" }}
+    </p>
+  </div>
+  <div class="mt-4">
+    <p>{{ post.content }}</p>
+  </div>
+
+  <p class="mt-5 mb-3 fw-bold">{{ post.comments.all|length }} comments</p>
+  {% for comment in post.comments.all %}
+    <div class="border rounded-2 p-3 mb-3 bg-white">
+      <p class="text-muted small mb-2 border-bottom pb-2">
+        <strong>{{ comment.user.username }}</strong>
+        <span class="ms-2 text-secondary">{{ comment.created_time|date:"N d, Y, P" }}</span>
+      </p>
+      <p class="mb-0 text-dark">{{ comment.content }}</p>
+    </div>
+  {% empty %}
+    <p class="text-muted">There are no comments yet.</p>
+  {% endfor %}
+
+  <div class="add_new_comment">
+    <p><strong>Add new comment</strong></p>
+
+    {% if form.errors %}
+      <div class="alert alert-danger p-2 mb-3 rounded-2 small">
+        {% for field, errors in form.errors.items %}
+          {% for error in errors %}
+            <p class="mb-0">{{ error }}</p>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form action="" method="post" novalidate>
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ form.content }}
+      </div>
+      <input type="submit" value="Add comment" class="btn btn-outline-primary">
+    </form>
+  </div>
+{% endblock %}

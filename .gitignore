@@ -50,6 +50,7 @@ docs/_build/
 target/
 .ipynb_checkpoints
 profile_default/
+profile_default/
 ipython_config.py
 .pdm-python
 .pdm-build/
@@ -93,3 +94,4 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 .streamlit/secrets.toml
+.idea
