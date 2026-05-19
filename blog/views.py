@@ -30,7 +30,10 @@ class PostDetailView(DetailView):
 
         if not request.user.is_authenticated:
             form = CommentForm(request.POST)
-            form.add_error("content", "Only registered users can leave comments.")
+            form.add_error(
+                "content",
+                "Only registered users can leave comments."
+            )
             return self.render_to_response(self.get_context_data(form=form))
 
         form = CommentForm(request.POST)
